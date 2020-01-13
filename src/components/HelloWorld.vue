@@ -5,7 +5,7 @@
       <b-table striped hover :items="connections" :fields="connections_fields"></b-table>
     </div>
     <div>
-      <span>List of connections</span>
+      <span>List of people</span>
       <b-table striped hover :items="people" :fields="people_fields"></b-table>
     </div>
   </div>
