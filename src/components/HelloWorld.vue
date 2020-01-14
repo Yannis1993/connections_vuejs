@@ -1,12 +1,41 @@
 <template>
   <div>
     <div>
-      <span>List of connections</span>
-      <b-table striped hover :items="connections" :fields="connections_fields"></b-table>
+      <span>Create a new person</span>
+      <b-form inline style="margin-left: auto;margin-right: auto;width: 50%;">
+        <label class="sr-only" for="inline-form-input-name">Last Name</label>
+        <b-input
+          id="inline-form-input-name"
+          class="mb-2 mr-sm-2 mb-sm-0"
+          placeholder="Last Name"
+          v-model="person.last_name"
+        ></b-input>
+
+        <label class="sr-only" for="inline-form-input-name" >First Name</label>
+        <b-input
+          id="inline-form-input-name"
+          class="mb-2 mr-sm-2 mb-sm-0"
+          placeholder="First Name"
+          v-model="person.first_name"
+        ></b-input>
+
+        <label class="sr-only" for="inline-form-input-email">Email</label>
+        <b-input-group prepend="@" class="mb-2 mr-sm-2 mb-sm-0">
+          <b-input id="inline-form-input-email" v-model="person.email" placeholder="Email"></b-input>
+        </b-input-group>
+
+        <b-button variant="primary" @click="addPerson">Create</b-button>
+      </b-form>
     </div>
+
     <div>
       <span>List of people</span>
       <b-table striped hover :items="people" :fields="people_fields"></b-table>
+    </div>
+
+    <div>
+      <span>List of connections</span>
+      <b-table striped hover :items="connections" :fields="connections_fields"></b-table>
     </div>
   </div>
 </template>
@@ -24,6 +53,11 @@ import axios from 'axios';
         people_fields: ['id', 'email', 'first_name', 'last_name'],
         connections: [],
         people: [],
+        person: {
+          first_name: '',
+          email: '',
+          last_name: '',
+        },
         error: ''
       }
     },
@@ -42,7 +76,24 @@ import axios from 'axios';
         this.error = error
         this.data = []
       })
-    }
+    },
+    methods: {
+      addPerson() {
+        return new Promise((resolve, reject) => {
+          axios.post(BASE_URL + PEOPLE_END_POINT, {
+            first_name: this.person.first_name,
+            last_name: this.person.last_name,
+            email: this.person.email,
+          })
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error.response.data)
+          })
+        })
+      }
+    },
 }
   
 </script>
