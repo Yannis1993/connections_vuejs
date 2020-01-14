@@ -4,7 +4,8 @@
       alt="Vue logo"
       src="./assets/logo.png"
     />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <People msg="Welcome to Your Vue.js App" />
+    <Connection msg="Welcome to Your Vue.js App" />
   </div>
 </template>
 
@@ -15,12 +16,15 @@
   Vue.use(BootstrapVue)
   Vue.use(IconsPlugin)
 
-  import HelloWorld from './components/HelloWorld.vue'
+  import Connection from './components/Connection.vue'
+
+  import People from './components/People.vue'
 
   export default {
     name: 'App',
     components: {
-      HelloWorld
+      People,
+      Connection
     }
   }
 
